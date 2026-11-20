@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BohPTS — Interlude x20 Dark & Light | Онлайн 20 000+ | Без зеркал</title>
+    <meta name="description" content="BohPTS — легендарный сервер Lineage 2 Interlude x20 с плавным переходом в High Five. Два сервера Dark & Light. Онлайн более 20 000 игроков. Работает без зеркал. Новый клиент Samurai, эпики, PvP и стабильность. Регистрация и скачать клиент.">
+    <meta name="keywords" content="BohPTS, Lineage 2, Interlude x20, High Five, Dark Light, сервер L2, L2 PTS, онлайн 20000, без зеркал, скачать клиент L2, регистрация BohPTS">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="BohPTS">
+    <meta property="og:title" content="BohPTS — Interlude x20 Dark & Light | Онлайн 20 000+">
+    <meta property="og:description" content="Легендарный сервер Lineage 2. Онлайн более 20 000 игроков. Работает без зеркал. Два сервера Dark & Light, новый клиент Samurai, поэтапный High Five.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bohpts.ru/">
+    <meta property="og:image" content="https://bohpts.ru/YCH4YfxJz4VGrdOpXWFGOLE3Q1uQcZcn7Vl1K1ri.webp">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --gold-light: #f0d878;
+            --gold-dark: #a67c00;
+            --dark: #0a0a0f;
+            --darker: #050508;
+            --accent: #8b0000;
+            --accent-light: #c41e3a;
+            --text: #e8e6e3;
+            --text-muted: #a0a0a8;
+            --glass: rgba(15, 15, 25, 0.75);
+            --glass-border: rgba(212, 175, 55, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        /* ===== PRELOADER ===== */
+        #preloader {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #050508 0%, #0d0d18 50%, #1a0a0a 100%);
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        #preloader.hide {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .preloader-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.8rem, 10vw, 5.5rem);
+            font-weight: 900;
+            letter-spacing: 0.15em;
+            background: linear-gradient(90deg, #a67c00, #f0d878, #d4af37, #f0d878, #a67c00);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: shine 2.5s linear infinite, appear 1.2s ease-out forwards;
+            opacity: 0;
+            transform: scale(0.6) translateY(30px);
+            text-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
+            position: relative;
+        }
+
+        .preloader-logo::after {
+            content: '';
+            position: absolute;
+            inset: -20px;
+            background: radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%);
+            animation: pulse-glow 2s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes appear {
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        .preloader-loading {
+            margin-top: 2rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 0.4em;
+            color: var(--gold);
+            opacity: 0;
+            animation: fadeIn 0.8s ease 0.8s forwards, blink 1.2s ease-in-out 1.5s infinite;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .preloader-bar {
+            width: 220px;
+            height: 3px;
+            background: rgba(212, 175, 55, 0.15);
+            border-radius: 3px;
+            margin-top: 1.5rem;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeIn 0.5s ease 1s forwards;
+        }
+
+        .preloader-bar-inner {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold-light), var(--gold));
+            border-radius: 3px;
+            animation: loadBar 2.2s ease-in-out 1.2s forwards;
+        }
+
+        @keyframes loadBar {
+            to { width: 100%; }
+        }
+
+        /* ===== BACKGROUND ===== */
+        .bg-wrapper {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .bg-image {
+            position: absolute;
+            inset: 0;
+            background: url('https://bohpts.ru/YCH4YfxJz4VGrdOpXWFGOLE3Q1uQcZcn7Vl1K1ri.webp') center/cover no-repeat;
+            filter: brightness(0.45) contrast(1.15) saturate(1.1);
+            transform: scale(1.05);
+            animation: bgMove 30s ease-in-out infinite alternate;
+        }
+
+        @keyframes bgMove {
+            from { transform: scale(1.05) translate(0, 0); }
+            to { transform: scale(1.12) translate(-1%, -1%); }
+        }
+
+        .bg-overlay {
+            position: absolute;
+            inset: 0;
+            background: 
+                linear-gradient(180deg, rgba(5,5,8,0.7) 0%, rgba(5,5,8,0.4) 40%, rgba(5,5,8,0.85) 100%),
+                radial-gradient(ellipse at 50% 0%, rgba(139,0,0,0.15) 0%, transparent 60%);
+            z-index: -1;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 0.8rem 1.5rem;
+            background: rgba(5, 5, 12, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            transition: background 0.3s;
+        }
+
+        header.scrolled {
+            background: rgba(5, 5, 12, 0.95);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .btn-cp {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.45rem 1rem;
+            background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(166,124,0,0.1));
+            border: 1px solid rgba(212,175,55,0.4);
+            color: var(--gold-light);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .btn-cp:hover {
+            background: linear-gradient(135deg, rgba(212,175,55,0.3), rgba(166,124,0,0.2));
+            border-color: var(--gold);
+            box-shadow: 0 0 20px rgba(212,175,55,0.25);
+            transform: translateY(-1px);
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-decoration: none;
+            position: relative;
+            display: inline-block;
+        }
+
+        .logo span {
+            background: linear-gradient(90deg, #a67c00, #f0d878, #d4af37, #f0d878, #a67c00);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: shine 4s linear infinite;
+            display: inline-block;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0.7;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-link {
+            padding: 0.4rem 0.85rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            border-radius: 5px;
+            transition: all 0.25s;
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover {
+            color: var(--gold-light);
+            background: rgba(212,175,55,0.08);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: all 0.3s;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after {
+            width: 60%;
+        }
+
+        .lang-switcher {
+            display: flex;
+            gap: 0.25rem;
+            margin-left: 0.5rem;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-muted);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.3rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .lang-btn:hover,
+        .lang-btn.active {
+            color: var(--gold);
+            border-color: rgba(212,175,55,0.4);
+            background: rgba(212,175,55,0.1);
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--gold);
+            font-size: 1.6rem;
+            cursor: pointer;
+            padding: 0.3rem;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 7rem 1.5rem 4rem;
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1.2rem;
+            background: rgba(196, 30, 58, 0.2);
+            border: 1px solid rgba(196, 30, 58, 0.5);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #ff6b6b;
+            margin-bottom: 1.5rem;
+            animation: fadeUp 0.8s ease 0.2s both;
+        }
+
+        .hero-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: #ff3b3b;
+            border-radius: 50%;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.3); }
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.4rem, 7vw, 4.2rem);
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            line-height: 1.15;
+            margin-bottom: 1rem;
+            animation: fadeUp 0.8s ease 0.3s both;
+        }
+
+        .hero h1 .gold {
+            background: linear-gradient(90deg, #a67c00, #f0d878, #d4af37);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: shine 3s linear infinite;
+        }
+
+        .hero-sub {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            color: var(--text-muted);
+            max-width: 680px;
+            margin-bottom: 1.8rem;
+            font-weight: 500;
+            animation: fadeUp 0.8s ease 0.4s both;
+        }
+
+        .online-counter {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.7rem 1.6rem;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            margin-bottom: 2.2rem;
+            backdrop-filter: blur(10px);
+            animation: fadeUp 0.8s ease 0.5s both;
+        }
+
+        .online-counter .number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold-light);
+            text-shadow: 0 0 20px rgba(212,175,55,0.4);
+        }
+
+        .online-counter .label {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            text-align: left;
+            line-height: 1.3;
+        }
+
+        .online-counter .label strong {
+            color: var(--text);
+            display: block;
+            font-size: 1rem;
+        }
+
+        .hero-cta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            animation: fadeUp 0.8s ease 0.6s both;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.9rem 1.8rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #d4af37, #a67c00);
+            color: #0a0a0f;
+            box-shadow: 0 4px 25px rgba(212,175,55,0.35);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 35px rgba(212,175,55,0.5);
+            background: linear-gradient(135deg, #f0d878, #d4af37);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--gold-light);
+            border: 1px solid rgba(212,175,55,0.5);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(212,175,55,0.1);
+            border-color: var(--gold);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(212,175,55,0.2);
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== FEATURES ===== */
+        .section {
+            padding: 5rem 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 0.6rem;
+            letter-spacing: 0.06em;
+        }
+
+        .section-title .gold {
+            color: var(--gold);
+        }
+
+        .section-sub {
+            text-align: center;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            font-size: 1.1rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            padding: 1.8rem 1.5rem;
+            backdrop-filter: blur(12px);
+            transition: all 0.35s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(212,175,55,0.45);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(212,175,55,0.1);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+            color: var(--gold-light);
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 0.98rem;
+            line-height: 1.55;
+        }
+
+        /* ===== SERVERS ===== */
+        .servers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .server-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            backdrop-filter: blur(12px);
+            transition: all 0.35s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .server-card.light {
+            border-color: rgba(240, 216, 120, 0.35);
+        }
+
+        .server-card.dark {
+            border-color: rgba(139, 0, 0, 0.4);
+        }
+
+        .server-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 45px rgba(0,0,0,0.45);
+        }
+
+        .server-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .server-card.light h3 { color: var(--gold-light); }
+        .server-card.dark h3 { color: #ff6b6b; }
+
+        .server-card .rate {
+            font-size: 2.2rem;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            margin: 0.8rem 0;
+        }
+
+        .server-card.light .rate { color: var(--gold); }
+        .server-card.dark .rate { color: #ff4d4d; }
+
+        .server-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* ===== CTA BLOCK ===== */
+        .cta-block {
+            text-align: center;
+            padding: 4rem 1.5rem;
+            margin: 2rem auto;
+            max-width: 900px;
+            background: linear-gradient(135deg, rgba(212,175,55,0.08), rgba(139,0,0,0.08));
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-block::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(212,175,55,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cta-block h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.5rem, 3.5vw, 2rem);
+            margin-bottom: 1rem;
+        }
+
+        .cta-block p {
+            color: var(--text-muted);
+            margin-bottom: 1.8rem;
+            font-size: 1.1rem;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            background: rgba(5,5,12,0.9);
+            margin-top: 3rem;
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer .logo-footer {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 0.8rem;
+            letter-spacing: 0.1em;
+        }
+
+        /* ===== MOBILE ===== */
+        @media (max-width: 900px) {
+            .mobile-toggle {
+                display: block;
+            }
+
+            nav {
+                position: fixed;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: rgba(5,5,12,0.97);
+                flex-direction: column;
+                padding: 1rem;
+                gap: 0.3rem;
+                border-bottom: 1px solid var(--glass-border);
+                transform: translateY(-120%);
+                opacity: 0;
+                transition: all 0.35s ease;
+                pointer-events: none;
+            }
+
+            nav.open {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            .nav-link {
+                width: 100%;
+                text-align: center;
+                padding: 0.7rem;
+            }
+
+            .lang-switcher {
+                margin: 0.5rem 0 0;
+                justify-content: center;
+            }
+
+            .header-left {
+                gap: 0.8rem;
+            }
+
+            .btn-cp {
+                font-size: 0.7rem;
+                padding: 0.4rem 0.7rem;
+            }
+
+            .logo {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-cta {
+                flex-direction: column;
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- PRELOADER -->
+    <div id="preloader">
+        <div class="preloader-logo">BohPTS</div>
+        <div class="preloader-loading">Loading....</div>
+        <div class="preloader-bar">
+            <div class="preloader-bar-inner"></div>
+        </div>
+    </div>
+
+    <!-- BACKGROUND -->
+    <div class="bg-wrapper">
+        <div class="bg-image"></div>
+        <div class="bg-overlay"></div>
+    </div>
+
+    <!-- HEADER -->
+    <header id="header">
+        <div class="header-left">
+           
+            <a href="/" class="logo"><span>BohPTS</span></a>
+        </div>
+
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">☰</button>
+
+        <nav id="nav">
+            <a href="/news" class="nav-link" data-i18n="nav_news">Новости</a>
+            <a href="/register" class="nav-link" data-i18n="nav_register">Регистрация</a>
+            <a href="/info" class="nav-link" data-i18n="nav_info">О сервере</a>
+            <a href="/files" class="nav-link" data-i18n="nav_files">Скачать клиент</a>
+            <a href="/forums" class="nav-link" data-i18n="nav_forum">Форум</a>
+            <div class="lang-switcher">
+                <button class="lang-btn active" data-lang="ru">RU</button>
+                <button class="lang-btn" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="es">ES</button>
+                <button class="lang-btn" data-lang="ua">UA</button>
+                <button class="lang-btn" data-lang="pt">BR</button>
+            </div>
+             <a href="/cp" class="btn-cp" data-i18n="cp">Личный Кабинет</a>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-badge">
+            <span class="dot"></span>
+            <span data-i18n="badge">LIVE • Interlude x20 Dark & Light</span>
+        </div>
+        <h1>
+            <span class="gold">BohPTS</span><br>
+            <span data-i18n="hero_title">Легенда возвращается</span>
+        </h1>
+        <p class="hero-sub" data-i18n="hero_sub">
+            Interlude x20 с плавным переходом в High Five. Два сервера — Dark и Light. Новый клиент Samurai. Стабильность без зеркал.
+        </p>
+
+        <div class="online-counter">
+            <div class="number">20 000+</div>
+            <div class="label">
+                <strong data-i18n="online_label">Онлайн</strong>
+                <span data-i18n="online_sub">игроков прямо сейчас</span>
+            </div>
+        </div>
+
+        <div class="hero-cta">
+            <a href="/register" class="btn btn-primary" data-i18n="cta_register">Создать аккаунт</a>
+            <a href="/files" class="btn btn-secondary" data-i18n="cta_download">Скачать клиент</a>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="section">
+        <h2 class="section-title"><span class="gold" data-i18n="why_title">Почему BohPTS</span></h2>
+        <p class="section-sub" data-i18n="why_sub">Всё, что нужно для настоящей Lineage 2 — без компромиссов</p>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <span class="feature-icon">⚔️</span>
+                <h3 data-i18n="f1_title">Dark & Light</h3>
+                <p data-i18n="f1_text">Два одинаковых сервера стартуют одновременно. Выбирай сторону и сражайся. При объединении — главный PvP-турнир.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">📈</span>
+                <h3 data-i18n="f2_title">x20 → High Five</h3>
+                <p data-i18n="f2_text">Interlude с поэтапным вводом контента High Five. Каждую неделю — новый грейд, эпики и инстансы.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🖥️</span>
+                <h3 data-i18n="f3_title">Клиент Samurai</h3>
+                <p data-i18n="f3_text">Новый клиент с улучшенной графикой, гибким интерфейсом и современными возможностями.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🛡️</span>
+                <h3 data-i18n="f4_title">Без зеркал</h3>
+                <p data-i18n="f4_text">Официальный проект. Стабильная работа без необходимости зеркал. Один адрес — и ты в игре.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">👥</span>
+                <h3 data-i18n="f5_title">20 000+ онлайн</h3>
+                <p data-i18n="f5_text">Огромное живое сообщество. Всегда есть с кем сражаться, торговать и объединяться в кланы.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🎁</span>
+                <h3 data-i18n="f6_title">Бонусы старта</h3>
+                <p data-i18n="f6_text">Премиум, купоны на экипировку, руны опыта и многое другое для комфортного старта.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVERS -->
+    <section class="section">
+        <h2 class="section-title"><span class="gold" data-i18n="servers_title">Серверы</span></h2>
+        <p class="section-sub" data-i18n="servers_sub">Выбери свою сторону</p>
+
+        <div class="servers">
+            <div class="server-card light">
+                <h3>LIGHT x20</h3>
+                <div class="rate">x20</div>
+                <p data-i18n="server_light">Светлая сторона. Interlude → High Five. Старт 20 ноября.</p>
+            </div>
+            <div class="server-card dark">
+                <h3>DARK x20</h3>
+                <div class="rate">x20</div>
+                <p data-i18n="server_dark">Тёмная сторона. Interlude → High Five. Старт 20 ноября.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta-block">
+        <h2 data-i18n="cta_title">Готов вступить в битву?</h2>
+        <p data-i18n="cta_text">Регистрация занимает меньше минуты. Скачай клиент и присоединяйся к тысячам игроков уже сегодня.</p>
+        <div class="hero-cta">
+            <a href="/register" class="btn btn-primary" data-i18n="cta_register">Создать аккаунт</a>
+            <a href="/info" class="btn btn-secondary" data-i18n="cta_more">Подробнее о сервере</a>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="logo-footer">BohPTS</div>
+        <p data-i18n="footer">© 2026 BohPTS. Interlude x20 Dark & Light. Онлайн 20 000+. Работает без зеркал.</p>
+    </footer>
+
+    <script>
+        // ===== PRELOADER =====
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('preloader').classList.add('hide');
+            }, 2800);
+        });
+
+        // ===== HEADER SCROLL =====
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 40);
+        });
+
+        // ===== MOBILE MENU =====
+        const mobileToggle = document.getElementById('mobileToggle');
+        const nav = document.getElementById('nav');
+        mobileToggle.addEventListener('click', () => {
+            nav.classList.toggle('open');
+            mobileToggle.textContent = nav.classList.contains('open') ? '✕' : '☰';
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('open');
+                mobileToggle.textContent = '☰';
+            });
+        });
+
+        // ===== i18n =====
+        const translations = {
+            ru: {
+                cp: "Личный Кабинет",
+                nav_news: "Новости",
+                nav_register: "Регистрация",
+                nav_info: "О сервере",
+                nav_files: "Скачать клиент",
+                nav_forum: "Форум",
+                badge: "LIVE • Interlude x20 Dark & Light",
+                hero_title: "Легенда возвращается",
+                hero_sub: "Interlude x20 с плавным переходом в High Five. Два сервера — Dark и Light. Новый клиент Samurai. Стабильность без зеркал.",
+                online_label: "Онлайн",
+                online_sub: "игроков прямо сейчас",
+                cta_register: "Создать аккаунт",
+                cta_download: "Скачать клиент",
+                why_title: "Почему BohPTS",
+                why_sub: "Всё, что нужно для настоящей Lineage 2 — без компромиссов",
+                f1_title: "Dark & Light",
+                f1_text: "Два одинаковых сервера стартуют одновременно. Выбирай сторону и сражайся. При объединении — главный PvP-турнир.",
+                f2_title: "x20 → High Five",
+                f2_text: "Interlude с поэтапным вводом контента High Five. Каждую неделю — новый грейд, эпики и инстансы.",
+                f3_title: "Клиент Samurai",
+                f3_text: "Новый клиент с улучшенной графикой, гибким интерфейсом и современными возможностями.",
+                f4_title: "Без зеркал",
+                f4_text: "Официальный проект. Стабильная работа без необходимости зеркал. Один адрес — и ты в игре.",
+                f5_title: "20 000+ онлайн",
+                f5_text: "Огромное живое сообщество. Всегда есть с кем сражаться, торговать и объединяться в кланы.",
+                f6_title: "Бонусы старта",
+                f6_text: "Премиум, купоны на экипировку, руны опыта и многое другое для комфортного старта.",
+                servers_title: "Серверы",
+                servers_sub: "Выбери свою сторону",
+                server_light: "Светлая сторона. Interlude → High Five. Старт 20 ноября.",
+                server_dark: "Тёмная сторона. Interlude → High Five. Старт 20 ноября.",
+                cta_title: "Готов вступить в битву?",
+                cta_text: "Регистрация занимает меньше минуты. Скачай клиент и присоединяйся к тысячам игроков уже сегодня.",
+                cta_more: "Подробнее о сервере",
+                footer: "© 2026 BohPTS. Interlude x20 Dark & Light. Онлайн 20 000+. Работает без зеркал."
+            },
+            en: {
+                cp: "Personal Cabinet",
+                nav_news: "News",
+                nav_register: "Register",
+                nav_info: "About Server",
+                nav_files: "Download Client",
+                nav_forum: "Forum",
+                badge: "LIVE • Interlude x20 Dark & Light",
+                hero_title: "The Legend Returns",
+                hero_sub: "Interlude x20 with smooth transition to High Five. Two servers — Dark and Light. New Samurai client. Stable, no mirrors needed.",
+                online_label: "Online",
+                online_sub: "players right now",
+                cta_register: "Create Account",
+                cta_download: "Download Client",
+                why_title: "Why BohPTS",
+                why_sub: "Everything you need for real Lineage 2 — no compromises",
+                f1_title: "Dark & Light",
+                f1_text: "Two identical servers start at the same time. Choose your side and fight. On merge — the main PvP tournament.",
+                f2_title: "x20 → High Five",
+                f2_text: "Interlude with gradual High Five content. Every week — new grade, epics and instances.",
+                f3_title: "Samurai Client",
+                f3_text: "New client with improved graphics, flexible interface and modern features.",
+                f4_title: "No Mirrors",
+                f4_text: "Official project. Stable work without the need for mirrors. One address — and you're in the game.",
+                f5_title: "20 000+ Online",
+                f5_text: "Huge living community. Always someone to fight, trade and unite in clans with.",
+                f6_title: "Start Bonuses",
+                f6_text: "Premium, equipment coupons, exp runes and much more for a comfortable start.",
+                servers_title: "Servers",
+                servers_sub: "Choose your side",
+                server_light: "Light side. Interlude → High Five. Launch November 20.",
+                server_dark: "Dark side. Interlude → High Five. Launch November 20.",
+                cta_title: "Ready to join the battle?",
+                cta_text: "Registration takes less than a minute. Download the client and join thousands of players today.",
+                cta_more: "More about the server",
+                footer: "© 2026 BohPTS. Interlude x20 Dark & Light. 20 000+ online. Works without mirrors."
+            },
+            es: {
+                cp: "Panel Personal",
+                nav_news: "Noticias",
+                nav_register: "Registro",
+                nav_info: "Sobre el servidor",
+                nav_files: "Descargar cliente",
+                nav_forum: "Foro",
+                badge: "LIVE • Interlude x20 Dark & Light",
+                hero_title: "La leyenda regresa",
+                hero_sub: "Interlude x20 con transición suave a High Five. Dos servidores — Dark y Light. Nuevo cliente Samurai. Estable, sin espejos.",
+                online_label: "En línea",
+                online_sub: "jugadores ahora mismo",
+                cta_register: "Crear cuenta",
+                cta_download: "Descargar cliente",
+                why_title: "Por qué BohPTS",
+                why_sub: "Todo lo que necesitas para un Lineage 2 real — sin compromisos",
+                f1_title: "Dark & Light",
+                f1_text: "Dos servidores idénticos comienzan al mismo tiempo. Elige tu lado y pelea. Al fusionarse — el gran torneo PvP.",
+                f2_title: "x20 → High Five",
+                f2_text: "Interlude con contenido High Five gradual. Cada semana — nuevo grado, épicos e instancias.",
+                f3_title: "Cliente Samurai",
+                f3_text: "Nuevo cliente con gráficos mejorados, interfaz flexible y funciones modernas.",
+                f4_title: "Sin espejos",
+                f4_text: "Proyecto oficial. Funciona de forma estable sin necesidad de espejos. Una dirección — y estás en el juego.",
+                f5_title: "20 000+ en línea",
+                f5_text: "Gran comunidad viva. Siempre hay con quién pelear, comerciar y unirse en clanes.",
+                f6_title: "Bonos de inicio",
+                f6_text: "Premium, cupones de equipo, runas de experiencia y mucho más para un comienzo cómodo.",
+                servers_title: "Servidores",
+                servers_sub: "Elige tu lado",
+                server_light: "Lado de la Luz. Interlude → High Five. Lanzamiento 20 de noviembre.",
+                server_dark: "Lado Oscuro. Interlude → High Five. Lanzamiento 20 de noviembre.",
+                cta_title: "¿Listo para unirte a la batalla?",
+                cta_text: "El registro toma menos de un minuto. Descarga el cliente y únete a miles de jugadores hoy.",
+                cta_more: "Más sobre el servidor",
+                footer: "© 2026 BohPTS. Interlude x20 Dark & Light. 20 000+ en línea. Funciona sin espejos."
+            },
+            ua: {
+                cp: "Особистий Кабінет",
+                nav_news: "Новини",
+                nav_register: "Реєстрація",
+                nav_info: "Про сервер",
+                nav_files: "Завантажити клієнт",
+                nav_forum: "Форум",
+                badge: "LIVE • Interlude x20 Dark & Light",
+                hero_title: "Легенда повертається",
+                hero_sub: "Interlude x20 з плавним переходом до High Five. Два сервери — Dark і Light. Новий клієнт Samurai. Стабільність без дзеркал.",
+                online_label: "Онлайн",
+                online_sub: "гравців прямо зараз",
+                cta_register: "Створити акаунт",
+                cta_download: "Завантажити клієнт",
+                why_title: "Чому BohPTS",
+                why_sub: "Все, що потрібно для справжньої Lineage 2 — без компромісів",
+                f1_title: "Dark & Light",
+                f1_text: "Два однакові сервери стартують одночасно. Обирай сторону і бийся. При об'єднанні — головний PvP-турнір.",
+                f2_title: "x20 → High Five",
+                f2_text: "Interlude з поетапним введенням контенту High Five. Щотижня — новий грейд, епіки та інстанси.",
+                f3_title: "Клієнт Samurai",
+                f3_text: "Новий клієнт з покращеною графікою, гнучким інтерфейсом та сучасними можливостями.",
+                f4_title: "Без дзеркал",
+                f4_text: "Офіційний проєкт. Стабільна робота без потреби в дзеркалах. Одна адреса — і ти в грі.",
+                f5_title: "20 000+ онлайн",
+                f5_text: "Величезна жива спільнота. Завжди є з ким битися, торгувати та об'єднуватися в клани.",
+                f6_title: "Бонуси старту",
+                f6_text: "Преміум, купони на екіпіровку, руни досвіду та багато іншого для комфортного старту.",
+                servers_title: "Сервери",
+                servers_sub: "Обери свою сторону",
+                server_light: "Світла сторона. Interlude → High Five. Старт 20 листопада.",
+                server_dark: "Темна сторона. Interlude → High Five. Старт 20 листопада.",
+                cta_title: "Готовий вступити в битву?",
+                cta_text: "Реєстрація займає менше хвилини. Завантаж клієнт і приєднуйся до тисяч гравців вже сьогодні.",
+                cta_more: "Детальніше про сервер",
+                footer: "© 2026 BohPTS. Interlude x20 Dark & Light. Онлайн 20 000+. Працює без дзеркал."
+            },
+            pt: {
+                cp: "Painel Pessoal",
+                nav_news: "Notícias",
+                nav_register: "Registro",
+                nav_info: "Sobre o servidor",
+                nav_files: "Baixar cliente",
+                nav_forum: "Fórum",
+                badge: "LIVE • Interlude x20 Dark & Light",
+                hero_title: "A lenda retorna",
+                hero_sub: "Interlude x20 com transição suave para High Five. Dois servidores — Dark e Light. Novo cliente Samurai. Estável, sem espelhos.",
+                online_label: "Online",
+                online_sub: "jogadores agora",
+                cta_register: "Criar conta",
+                cta_download: "Baixar cliente",
+                why_title: "Por que BohPTS",
+                why_sub: "Tudo o que você precisa para um Lineage 2 de verdade — sem compromissos",
+                f1_title: "Dark & Light",
+                f1_text: "Dois servidores idênticos começam ao mesmo tempo. Escolha seu lado e lute. Na fusão — o grande torneio PvP.",
+                f2_title: "x20 → High Five",
+                f2_text: "Interlude com conteúdo High Five gradual. Toda semana — novo grau, épicos e instâncias.",
+                f3_title: "Cliente Samurai",
+                f3_text: "Novo cliente com gráficos melhorados, interface flexível e recursos modernos.",
+                f4_title: "Sem espelhos",
+                f4_text: "Projeto oficial. Funciona de forma estável sem necessidade de espelhos. Um endereço — e você está no jogo.",
+                f5_title: "20 000+ online",
+                f5_text: "Grande comunidade viva. Sempre tem com quem lutar, negociar e se unir em clãs.",
+                f6_title: "Bônus de início",
+                f6_text: "Premium, cupons de equipamento, runas de experiência e muito mais para um começo confortável.",
+                servers_title: "Servidores",
+                servers_sub: "Escolha seu lado",
+                server_light: "Lado da Luz. Interlude → High Five. Lançamento 20 de novembro.",
+                server_dark: "Lado Sombrio. Interlude → High Five. Lançamento 20 de novembro.",
+                cta_title: "Pronto para entrar na batalha?",
+                cta_text: "O registro leva menos de um minuto. Baixe o cliente e junte-se a milhares de jogadores hoje.",
+                cta_more: "Mais sobre o servidor",
+                footer: "© 2026 BohPTS. Interlude x20 Dark & Light. 20 000+ online. Funciona sem espelhos."
+            }
+        };
+
+        function setLanguage(lang) {
+            const t = translations[lang] || translations.ru;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (t[key]) el.textContent = t[key];
+            });
+            document.documentElement.lang = lang === 'ua' ? 'uk' : (lang === 'pt' ? 'pt-BR' : lang);
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+            localStorage.setItem('bohpts_lang', lang);
+        }
+
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+        });
+
+        // Init language
+        const savedLang = localStorage.getItem('bohpts_lang') || 'ru';
+        setLanguage(savedLang);
+    </script>
+</body>
+</html>
